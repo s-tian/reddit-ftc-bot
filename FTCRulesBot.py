@@ -4,7 +4,7 @@ import time
 import OAuth2Util
 
 def remove_punc(s):
-    for i in ['.',',','"']:
+    for i in ['.',',','"', ';']:
         s = s.replace(i, "")
     return s
 
