@@ -2,7 +2,7 @@
 Automatically provides game rules for user reference.
 
 Usage:
-The bot responds to words of the form`'!' + rule_number` in comments in the specified subreddit with the full text of the rule from the FTC 2016-17 Game Manual Part 2. Multiple rules can be called for in the same comment. Letter casing and punctuation marks (`'`,`"`, `.`, `;`) do not prevent the bot from matching rules.
+The bot responds to words of the form`'!' + rule_number` in comments in the specified subreddit with the full text of the rule from the FTC 2016-17 Game Manual Part 2. Multiple rules can be called for in the same comment. Letter casing and punctuation marks (`'`,`"`, `,`, `.`, `;`) do not prevent the bot from matching rules.
 
 Example: `'!GS10, !S2, !G4 !gs15'` will result in a comment with the text of the rules GS10, S2, G4, and GS15 concatenated.
 
