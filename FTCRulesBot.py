@@ -1,7 +1,6 @@
 import praw
 import os
 import time
-import OAuth2Util
 
 def remove_punc(s):
     for i in ['.',',','"', '\'', ';']:
@@ -12,12 +11,12 @@ def parse_file(f):
     #Parse the text file that contains all of the rules
     s = [word.replace('\n','\n\n') for word in f.read().split('*')]
     return s
-    
+
 def run_bot():
     user_agent = "FTC Rules"
-    r = praw.Reddit(user_agent=user_agent)
-    o = OAuth2Util.OAuth2Util(r)
-    o.refresh(force=True)
+    r = praw.Reddit('bot')
+    print(r.user.me())
+    s = praw.models.reddit.subreddit.SubredditStream(r.subreddit('testabot'))
 
     # Have we run this code before? If not, create an empty list
     if not os.path.isfile("posts_replied_to.txt"):
@@ -32,8 +31,7 @@ def run_bot():
             posts_replied_to = filter(None, posts_replied_to)
         
     rulesDict = dict((line.strip().split(' = ') for line in parse_file(file("RulesDict.txt"))))
-    for c in praw.helpers.comment_stream(r, 'ftc'):    #Choose what subreddit to get comments from
-        o.refresh()
+    for c in s.comments():
         text = c.body
         words = text.split()
         rules = []
@@ -62,6 +60,6 @@ def run_bot():
                     print '\tSleeping for %d seconds' % error.sleep_time
                     for i in range(int(error.sleep_time)):
                         time.sleep(1)
-
+            print 'responded!'
 if __name__ == '__main__':
     run_bot()
