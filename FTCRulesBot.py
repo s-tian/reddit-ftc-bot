@@ -14,9 +14,9 @@ def parse_file(f):
 
 def run_bot():
     user_agent = "FTC Rules"
-    r = praw.Reddit('bot')
+    r = praw.Reddit('FTCRules')
     print(r.user.me())
-    s = praw.models.reddit.subreddit.SubredditStream(r.subreddit('testabot'))
+    s = praw.models.reddit.subreddit.SubredditStream(r.subreddit('ftc'))
 
     # Have we run this code before? If not, create an empty list
     if not os.path.isfile("posts_replied_to.txt"):
@@ -62,4 +62,9 @@ def run_bot():
                         time.sleep(1)
             print 'responded!'
 if __name__ == '__main__':
-    run_bot()
+    while True:
+        try:
+            run_bot()
+        except Exception as e:  #Try to restart when there's a server error.
+            print e
+            pass
